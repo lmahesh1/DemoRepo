@@ -1,0 +1,30 @@
+<div class="summarizer-container">
+  <h2>Text File Summarizer</h2>
+
+  <div class="upload-section">
+    <label for="fileInput" class="file-input-label">Choose a .txt file:</label>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".txt" class="file-input">
+  </div>
+
+  <div *ngIf="selectedFile" class="file-info">
+    Selected file: <strong>{{ selectedFile.name }}</strong> ({{ selectedFile.size | number }} bytes)
+  </div>
+
+  <button (click)="uploadAndSummarize()" [disabled]="!selectedFile || isLoading" class="summarize-button">
+    <span *ngIf="!isLoading">Summarize</span>
+    <span *ngIf="isLoading">Summarizing...</span>
+  </button>
+
+  <div *ngIf="isLoading" class="loading-indicator">
+    Processing your file, please wait...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="summary" class="summary-result">
+    <h3>Summary:</h3>
+    <pre>{{ summary }}</pre>
+  </div>
+</div>
